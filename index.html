@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Simple Map</title>
+    <link rel="stylesheet" href="node_modules/ol/ol.css">
+    <style>
+      .map {
+        width: 100%;
+        height: 920px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script type="module" src="main.js"></script>
+    <script src="/hamgridsquare.js"></script>
+    <div class="js-user-location" data-points='{
+      "participants": [
+        {
+            "callsign": "LY2EN",
+            "loc": "KO24pq",
+            "year": "2024",
+            "bands": [
+                "144",
+                "432",
+                "1296"
+            ],
+            "modes": [
+                "CW",
+                "SSB",
+                "DIGI"
+            ]
+        }
+    ]
+}'></div>
+  </body>
+</html>
