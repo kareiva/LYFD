@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Simple Map</title>
+    <title>LY lauko dienos skelbimai</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/ol/ol.css">
     <style>
       .map {
@@ -12,8 +13,25 @@
     </style>
   </head>
   <body>
-    <div id="map" class="map"></div>
+    <form>
+      <b>LY VHF FD:</b>
+      <input type="text" id="callsign" placeholder="Callsign">
+      <input type="text" id="loc" placeholder="KO15ab">
+      <b>Bands:</b>
+      <label for="band_144">&nbsp;144MHz&nbsp;</label><input id="band_144" type="checkbox"></label>
+      <label for="band_432">&nbsp;432MHz&nbsp;</label><input id="band_432" type="checkbox"></label>
+      <label for="band_shf">&nbsp;1296MHz+&nbsp;</label><input id="band_shf" type="checkbox"></label>
+      <b>Modes:</b>
+      <label for="mode_cw">&nbsp;CW&nbsp;</label><input id="mode_cw" type="checkbox"></label>
+      <label for="mode_ph">&nbsp;Phone&nbsp;</label><input id="mode_ph" type="checkbox"></label>
+      <label for="mode_digi">&nbsp;DIGI&nbsp;</label><input id="mode_digi" type="checkbox"></label>
+      Confirm:
+      <input type="text" placeholder="type 'confirm'"></input>
+      <input type="submit" value="Announce">
+    </form>
+    <div id="map" class="map"><div id="popup"></div></div>
     <script type="module" src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/hamgridsquare.js"></script>
     <div class="js-user-location" data-points='{
       "participants": [
@@ -31,7 +49,22 @@
                 "SSB",
                 "DIGI"
             ]
-        }
+        },
+        {
+          "callsign": "LY1CR",
+          "loc": "KO15cl",
+          "year": "2024",
+          "bands": [
+              "144",
+              "432",
+              "1296"
+          ],
+          "modes": [
+              "CW",
+              "SSB",
+              "DIGI"
+          ]
+      }
     ]
 }'></div>
   </body>
