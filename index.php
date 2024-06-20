@@ -25,8 +25,8 @@ $db = mysqli_connect(
         height: 100vh;
       }
     </style>
-    <script type="module" crossorigin src="/assets/index.php.e3b09573.js"></script>
-    <link rel="stylesheet" href="/assets/index.php.5fd94eca.css">
+
+    <link rel="stylesheet" href="node_modules/ol/ol.css">
   </head>
   <body>
     <?php 
@@ -123,7 +123,7 @@ $db = mysqli_connect(
       <input type="submit" value="Announce">
     </form></div>
     <div id="map" class="map"><div id="popup"></div></div>
-    
+    <script type="module" src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/hamgridsquare.js"></script>
     <div class="js-user-location" data-points='{
