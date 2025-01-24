@@ -1,0 +1,38 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Containerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_USER=lyfd
+      - DB_PASSWORD=lyfd
+      - DB_NAME=lyfdqrzlt_fd
+    depends_on:
+      - db
+    networks:
+      - lyfd-network
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=lyfd
+      - MYSQL_DATABASE=lyfdqrzlt_fd
+      - MYSQL_USER=lyfd
+      - MYSQL_PASSWORD=lyfd
+    volumes:
+      - mysql_data:/var/lib/mysql:Z
+      - ./lyfdqrzlt_fd.sql:/docker-entrypoint-initdb.d/lyfdqrzlt_fd.sql:Z
+    ports:
+      - "3306:3306"
+    networks:
+      - lyfd-network
+
+volumes:
+  mysql_data:
+
+networks:
+  lyfd-network:
+    driver: bridge 
