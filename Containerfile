@@ -8,7 +8,7 @@ COPY . .
 RUN npm run build
 
 # PHP stage
-FROM php:8.2-cli
+FROM php:7.4-cli
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Set up working directory

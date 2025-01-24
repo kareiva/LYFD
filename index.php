@@ -5,11 +5,15 @@ $call_regex = '/^([A-Z0-9]+[\/])?([A-Z][0-9]|[A-Z]{1,2}|[0-9][A-Z])([0-9]|[0-9]+
 $loc_regex = '/^([A-R]{2})([0-9]{2})([A-X]{2})$/i';
 
 $db = mysqli_connect(
-  'localhost',
-  'lyfdqrzlt_fd',
-  'lyfdqrzlt_fd',
-  'lyfdqrzlt_fd'
+  getenv('DB_HOST'),
+  getenv('DB_USER'),
+  getenv('DB_PASSWORD'),
+  getenv('DB_NAME')
 );
+
+if (!$db) {
+    die('Connection failed: ' . mysqli_connect_error());
+}
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -31,7 +35,7 @@ $db = mysqli_connect(
   <body>
     <?php 
     
-    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     if (isset($_POST['confirm']) && (
         $_POST['confirm']=='confirm' || 
         $_POST['confirm']=='change' )
@@ -49,6 +53,10 @@ $db = mysqli_connect(
 
       if (!$errors) {
         // insert into DB
+        $count_query = "SELECT COUNT(*) as count FROM `lyfd_announcements`";
+        $count_result = mysqli_query($db, $count_query);
+        $count_row = mysqli_fetch_assoc($count_result);
+        $next_id = $count_row['count'] + 1;
 
         $loc_arr = str_split($_POST['loc'],4);
         $loc_arr[0] = strtoupper($loc_arr[0]);
@@ -61,7 +69,7 @@ $db = mysqli_connect(
              `band_50`, `band_144`, `band_432`, `band_shf`, 
              `mode_cw`, `mode_ph`, `mode_digi`, `year`)
         VALUES
-            ('', 
+            ({$next_id},
               '" . strtoupper($_POST['callsign']) . "', 
               '" . $locator . "', 
               ".(isset($_POST['band_50'])?1:0).", 
@@ -80,7 +88,6 @@ $db = mysqli_connect(
       }
 
       if ($errors) {
-        printf("<h2>Klaidos:</h2>\n");
         foreach ($errors as $error) {
             printf("<li>$error</li>\n");
         }
@@ -155,9 +162,9 @@ $db = mysqli_connect(
       $modes = join(',', $mode_arr );
       
       printf("\t{
-          \"callsign\": \"${row['callsign']}\",
-          \"loc\": \"${row['loc']}\",
-          \"year\": \"${row['year']}\",
+          \"callsign\": \"{$row['callsign']}\",
+          \"loc\": \"{$row['loc']}\",
+          \"year\": \"{$row['year']}\",
           \"bands\": [ ". $bands ." ],
           \"modes\": [ ". $modes ." ]
         },\n");

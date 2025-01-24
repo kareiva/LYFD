@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `lyfd_announcements`;
 CREATE TABLE `lyfd_announcements` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `callsign` varchar(12) NOT NULL,
   `loc` varchar(6) NOT NULL,
   `band_50` tinyint(1) NOT NULL,
